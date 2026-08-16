@@ -1,5 +1,7 @@
 from pathlib import Path
 from sklearn.model_selection import train_test_split
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 import pandas as pd
 import numpy as np
@@ -79,14 +81,53 @@ print(y.value_counts())
 # Spit into trainong and test data
 # Rule 80% training data, 20% test data
 
-X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.20, random_state=42, stratify=y)
-print("\nTraining features shape:", X_train.shape)
-print("Testing features shape:", X_test.shape)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.20, random_state=42, stratify=y)
+print("\nTraining features shape:", x_train.shape)
+print("Testing features shape:", x_test.shape)
 print("\nTraining target distribution:")
 print(y_train.value_counts())
 print("\nTesting target distribution:")
 print(y_test.value_counts())
 
+# Encode target labels: no = 0, yes = 1
+y_train = y_train.map({"no": 0, "yes": 1})
+y_test = y_test.map({"no": 0, "yes": 1})
+print("\nEncoded training target:")
+print(y_train.value_counts())
+print("\nEncoded testing target:")
+print(y_test.value_counts())
+
+
+# Identify numerical and categorical features
+numerical_features = x_train.select_dtypes(include=["int64", "float64"]).columns.tolist()
+categorical_features = x_train.select_dtypes(include=["object"]).columns.tolist()
+
+print("\n Numerical features : ")
+print(numerical_features)
+
+print("\n Categorical features : ")
+print(categorical_features)
+
+print("\n Number of numerical features : ", len(numerical_features))
+print("\n Number of categorical features : ", len(categorical_features))
+
+
+#Build the preprocessing pipeline
+# Preprocessing for numerical features
+numerical_transformer = StandardScaler()
+
+# Preprocessing for categorical features
+categorical_transformer = OneHotEncoder(
+handle_unknown="ignore"
+)
+# Combine both preprocessing steps
+preprocessor = ColumnTransformer(
+transformers=[
+("num", numerical_transformer, numerical_features),
+("cat", categorical_transformer, categorical_features)
+]
+)
+print("\nPreprocessor created successfully.")
 
 
 
