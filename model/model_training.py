@@ -1,4 +1,5 @@
 from pathlib import Path
+from sklearn.model_selection import train_test_split
 
 import pandas as pd
 import numpy as np
@@ -65,4 +66,28 @@ print("\n Total missing values")
 print(df.isnull().sum().sum())
 
 
-#Separate feature X and target y
+#Separate feature X and target y, preprocessing
+x = df.drop(columns=["y"])
+y = df["y"]
+
+print("\n Feature matrix shape : ", x.shape)
+print("Target shape", y.shape)
+
+print("\n Target values")
+print(y.value_counts())
+
+# Spit into trainong and test data
+# Rule 80% training data, 20% test data
+
+X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.20, random_state=42, stratify=y)
+print("\nTraining features shape:", X_train.shape)
+print("Testing features shape:", X_test.shape)
+print("\nTraining target distribution:")
+print(y_train.value_counts())
+print("\nTesting target distribution:")
+print(y_test.value_counts())
+
+
+
+
+
