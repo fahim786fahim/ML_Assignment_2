@@ -1,0 +1,5 @@
+Based on your actual results, overall winner stands out is : Random Forest
+================================================================================
+Random Forest was the best-performing model overall because it achieved the highest scores in 5 out of the 6 evaluation metrics: Accuracy, AUC, Precision, F1 Score, and MCC.
+Although Naive Bayes had a higher Recall and was able to identify more actual subscribers, it also produced more false positives.
+Random Forest provided a better balance across all the important performance measures, making it the most reliable and effective model overall.
