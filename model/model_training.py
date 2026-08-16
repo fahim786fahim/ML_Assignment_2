@@ -377,3 +377,61 @@ print(rf_cm)
 print("\nRandom Forest Classification Report")
 print("-----------------------------------")
 print(classification_report(y_test, y_pred_rf))
+
+# ==========================================
+# MODEL COMPARISON
+# ==========================================
+model_results = pd.DataFrame({
+"ML Model": [
+"Logistic Regression",
+"Decision Tree",
+"KNN",
+"Naive Bayes",
+"Random Forest"
+],
+"Accuracy": [
+logistic_accuracy,
+tree_accuracy,
+knn_accuracy,
+nb_accuracy,
+rf_accuracy
+],
+"AUC": [
+logistic_auc,
+tree_auc,
+knn_auc,
+nb_auc,
+rf_auc
+],
+"Precision": [
+logistic_precision,
+tree_precision,
+knn_precision,
+nb_precision,
+rf_precision
+],
+"Recall": [
+logistic_recall,
+tree_recall,
+knn_recall,
+nb_recall,
+rf_recall
+],
+"F1": [
+logistic_f1,
+tree_f1,
+knn_f1,
+nb_f1,
+rf_f1
+],
+"MCC": [
+logistic_mcc,
+tree_mcc,
+knn_mcc,
+nb_mcc,
+rf_mcc
+]
+})
+print("\nFinal Model Comparison")
+print("----------------------")
+print(model_results.round(4).to_string(index=False))
