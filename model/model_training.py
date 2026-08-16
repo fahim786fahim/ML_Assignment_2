@@ -481,8 +481,10 @@ joblib.dump(
 naive_bayes_model,
 PROJECT_ROOT / "model" / "naive_bayes.pkl"
 )
+
 joblib.dump(
 random_forest_model,
-PROJECT_ROOT / "model" / "random_forest.pkl"
+PROJECT_ROOT / "model" / "random_forest.pkl",
+compress=3
 )
 print("\nAll trained models saved successfully.")
