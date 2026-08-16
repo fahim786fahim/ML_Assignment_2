@@ -2,6 +2,8 @@ from pathlib import Path
 from sklearn.model_selection import train_test_split
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.linear_model import LogisticRegression
 
 import pandas as pd
 import numpy as np
@@ -128,6 +130,22 @@ transformers=[
 ]
 )
 print("\nPreprocessor created successfully.")
+
+# Train the first model: Logistic Regression
+# Create Logistic Regression pipeline
+logistic_model = Pipeline(
+steps=[
+("preprocessor", preprocessor),
+("classifier", LogisticRegression(
+max_iter=1000,
+random_state=42
+))])
+
+# Train the model
+logistic_model.fit(x_train, y_train)
+print("\nLogistic Regression training completed.")
+
+
 
 
 
