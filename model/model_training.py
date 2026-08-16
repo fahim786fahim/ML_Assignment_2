@@ -435,3 +435,11 @@ rf_mcc
 print("\nFinal Model Comparison")
 print("----------------------")
 print(model_results.round(4).to_string(index=False))
+
+# Save model comparison results
+RESULTS_PATH = PROJECT_ROOT / "model" / "model_results.csv"
+model_results.round(4).to_csv(
+RESULTS_PATH,
+index=False
+)
+print(f"\nModel comparison results saved to: {RESULTS_PATH}")
