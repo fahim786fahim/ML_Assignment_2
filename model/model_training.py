@@ -31,3 +31,14 @@ print(df["y"].value_counts())
 
 print("\n Target distribution (%): ")
 print(df["y"].value_counts(normalize=True)*100)
+
+# Identify columns are numeric, categorical, categorical columns contain "unknown"
+print("\nData types:")
+print(df.dtypes)
+
+print("\nUnique values in categorical columns:")
+categorical_columns = df.select_dtypes(include="object").columns
+
+for col in categorical_columns:
+    print(f"\n{col}:")
+    print(df[col].value_counts())
