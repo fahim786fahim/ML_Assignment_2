@@ -42,3 +42,27 @@ categorical_columns = df.select_dtypes(include="object").columns
 for col in categorical_columns:
     print(f"\n{col}:")
     print(df[col].value_counts())
+
+print("Check : ")
+print(df["marital"].dtype)
+print(df.select_dtypes(include="object").columns.tolist())
+
+#unknown check
+print("\n Get the list of categorical columns which are unknows")
+categorical_columns = df.select_dtypes(include="object").columns;
+
+for col in categorical_columns:
+    unknown_count = (df[col] == "unknown").sum()
+
+    if unknown_count > 0:
+        print(f"{col}: {unknown_count}")
+
+#check on the missing values
+print("\n Missing values")
+print(df.isnull().sum())
+
+print("\n Total missing values")
+print(df.isnull().sum().sum())
+
+
+#Separate feature X and target y
