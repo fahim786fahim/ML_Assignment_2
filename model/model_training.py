@@ -443,3 +443,46 @@ RESULTS_PATH,
 index=False
 )
 print(f"\nModel comparison results saved to: {RESULTS_PATH}")
+
+# ==========================================
+# SAVE TEST DATA
+# ==========================================
+test_data = x_test.copy()
+# Add the original target values back
+test_data["y"] = y_test.map({
+0: "no",
+1: "yes"
+})
+TEST_DATA_PATH = PROJECT_ROOT / "test_data.csv"
+test_data.to_csv(
+TEST_DATA_PATH,
+index=False
+)
+print(f"\nTest data saved to: {TEST_DATA_PATH}")
+print("Test data shape:", test_data.shape)
+
+import joblib
+# ==========================================
+# SAVE TRAINED MODELS
+# ==========================================
+joblib.dump(
+logistic_model,
+PROJECT_ROOT / "model" / "logistic_regression.pkl"
+)
+joblib.dump(
+decision_tree_model,
+PROJECT_ROOT / "model" / "decision_tree.pkl"
+)
+joblib.dump(
+knn_model,
+PROJECT_ROOT / "model" / "knn.pkl"
+)
+joblib.dump(
+naive_bayes_model,
+PROJECT_ROOT / "model" / "naive_bayes.pkl"
+)
+joblib.dump(
+random_forest_model,
+PROJECT_ROOT / "model" / "random_forest.pkl"
+)
+print("\nAll trained models saved successfully.")
