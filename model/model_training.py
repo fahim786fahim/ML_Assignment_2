@@ -4,6 +4,14 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (
+accuracy_score,
+roc_auc_score,
+precision_score,
+recall_score,
+f1_score,
+matthews_corrcoef
+)
 
 import pandas as pd
 import numpy as np
@@ -145,8 +153,34 @@ random_state=42
 logistic_model.fit(x_train, y_train)
 print("\nLogistic Regression training completed.")
 
+#Generate predictions
+# Make predictions on the test data
+y_pred_logistic = logistic_model.predict(x_test)
+# Probability of the positive class (1 = yes)
+y_prob_logistic = logistic_model.predict_proba(x_test)[:, 1]
+print("\nFirst 10 actual values:")
+print(y_test.iloc[:10].tolist())
+print("\nFirst 10 predicted values:")
+print(y_pred_logistic[:10])
+print("\nFirst 10 predicted probabilities:")
+print(y_prob_logistic[:10])
 
+#Calculate all 6 required metrics for Logistic Regression
+logistic_accuracy = accuracy_score(y_test, y_pred_logistic)
+logistic_auc = roc_auc_score(y_test, y_prob_logistic)
+logistic_precision = precision_score(y_test, y_pred_logistic)
+logistic_recall = recall_score(y_test, y_pred_logistic)
+logistic_f1 = f1_score(y_test, y_pred_logistic)
+logistic_mcc = matthews_corrcoef(y_test, y_pred_logistic)
 
+print("\nLogistic Regression Metrics")
+print("-----------------------------")
+print(f"Accuracy : {logistic_accuracy:.4f}")
+print(f"AUC Score : {logistic_auc:.4f}")
+print(f"Precision : {logistic_precision:.4f}")
+print(f"Recall : {logistic_recall:.4f}")
+print(f"F1 Score : {logistic_f1:.4f}")
+print(f"MCC Score : {logistic_mcc:.4f}")
 
 
 
