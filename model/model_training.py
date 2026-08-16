@@ -279,3 +279,101 @@ print(knn_cm)
 print("\nKNN Classification Report")
 print("-------------------------")
 print(classification_report(y_test, y_pred_knn))
+
+#Model 4: Naive Bayes
+from sklearn.naive_bayes import GaussianNB
+# Separate preprocessor for Gaussian Naive Bayes
+nb_preprocessor = ColumnTransformer(
+transformers=[
+("num", StandardScaler(), numerical_features),
+("cat", OneHotEncoder(
+handle_unknown="ignore",
+sparse_output=False
+), categorical_features)
+]
+)
+# Create Gaussian Naive Bayes pipeline
+naive_bayes_model = Pipeline(
+steps=[
+("preprocessor", nb_preprocessor),
+("classifier", GaussianNB())
+]
+)
+# Train Naive Bayes
+naive_bayes_model.fit(x_train, y_train)
+print("\nNaive Bayes training completed.")
+
+# Evaluate Naive Bayes
+# Make predictions
+y_pred_nb = naive_bayes_model.predict(x_test)
+# Probability of positive class (1 = yes)
+y_prob_nb = naive_bayes_model.predict_proba(x_test)[:, 1]
+# Calculate evaluation metrics
+nb_accuracy = accuracy_score(y_test, y_pred_nb)
+nb_auc = roc_auc_score(y_test, y_prob_nb)
+nb_precision = precision_score(y_test, y_pred_nb)
+nb_recall = recall_score(y_test, y_pred_nb)
+nb_f1 = f1_score(y_test, y_pred_nb)
+nb_mcc = matthews_corrcoef(y_test, y_pred_nb)
+print("\nNaive Bayes Metrics")
+print("-------------------")
+print(f"Accuracy : {nb_accuracy:.4f}")
+print(f"AUC Score : {nb_auc:.4f}")
+print(f"Precision : {nb_precision:.4f}")
+print(f"Recall : {nb_recall:.4f}")
+print(f"F1 Score : {nb_f1:.4f}")
+print(f"MCC Score : {nb_mcc:.4f}")
+
+# Naive Bayes Confusion Matrix
+nb_cm = confusion_matrix(y_test, y_pred_nb)
+print("\nNaive Bayes Confusion Matrix")
+print("----------------------------")
+print(nb_cm)
+print("\nNaive Bayes Classification Report")
+print("---------------------------------")
+print(classification_report(y_test, y_pred_nb))
+
+# Model 5: Random Forest
+from sklearn.ensemble import RandomForestClassifier
+
+# Create Random Forest pipeline
+random_forest_model = Pipeline(
+steps=[
+("preprocessor", preprocessor),
+("classifier", RandomForestClassifier(
+n_estimators=100,
+random_state=42,
+n_jobs=-1))])
+# Train Random Forest
+random_forest_model.fit(x_train, y_train)
+print("\nRandom Forest training completed.")
+
+# Evaluate Random Forest
+# Make predictions
+y_pred_rf = random_forest_model.predict(x_test)
+# Probability of positive class (1 = yes)
+y_prob_rf = random_forest_model.predict_proba(x_test)[:, 1]
+# Calculate evaluation metrics
+rf_accuracy = accuracy_score(y_test, y_pred_rf)
+rf_auc = roc_auc_score(y_test, y_prob_rf)
+rf_precision = precision_score(y_test, y_pred_rf)
+rf_recall = recall_score(y_test, y_pred_rf)
+rf_f1 = f1_score(y_test, y_pred_rf)
+rf_mcc = matthews_corrcoef(y_test, y_pred_rf)
+print("\nRandom Forest Metrics")
+print("---------------------")
+print(f"Accuracy : {rf_accuracy:.4f}")
+print(f"AUC Score : {rf_auc:.4f}")
+print(f"Precision : {rf_precision:.4f}")
+print(f"Recall : {rf_recall:.4f}")
+print(f"F1 Score : {rf_f1:.4f}")
+print(f"MCC Score : {rf_mcc:.4f}")
+
+# Random Forest Confusion Matrix
+rf_cm = confusion_matrix(y_test, y_pred_rf)
+print("\nRandom Forest Confusion Matrix")
+print("------------------------------")
+print(rf_cm)
+print("\nRandom Forest Classification Report")
+print("-----------------------------------")
+print(classification_report(y_test, y_pred_rf))
