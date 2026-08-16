@@ -12,6 +12,9 @@ recall_score,
 f1_score,
 matthews_corrcoef
 )
+from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
 
 import pandas as pd
 import numpy as np
@@ -182,5 +185,97 @@ print(f"Recall : {logistic_recall:.4f}")
 print(f"F1 Score : {logistic_f1:.4f}")
 print(f"MCC Score : {logistic_mcc:.4f}")
 
+# Confusion Matrix
+logistic_cm = confusion_matrix(y_test, y_pred_logistic)
+print("\nLogistic Regression Confusion Matrix")
+print("------------------------------------")
+print(logistic_cm)
+# Classification Report
+print("\nLogistic Regression Classification Report")
+print("-----------------------------------------")
+print(classification_report(y_test, y_pred_logistic))
 
+# Create Decision Tree pipeline
+decision_tree_model = Pipeline(
+steps=[
+("preprocessor", preprocessor),
+("classifier", DecisionTreeClassifier(
+random_state=42
+))
+]
+)
+# Train Decision Tree
+decision_tree_model.fit(x_train, y_train)
+print("\nDecision Tree training completed.")
 
+# Make predictions
+y_pred_tree = decision_tree_model.predict(x_test)
+# Probability of positive class (1 = yes)
+y_prob_tree = decision_tree_model.predict_proba(x_test)[:, 1]
+# Calculate evaluation metrics
+tree_accuracy = accuracy_score(y_test, y_pred_tree)
+tree_auc = roc_auc_score(y_test, y_prob_tree)
+tree_precision = precision_score(y_test, y_pred_tree)
+tree_recall = recall_score(y_test, y_pred_tree)
+tree_f1 = f1_score(y_test, y_pred_tree)
+tree_mcc = matthews_corrcoef(y_test, y_pred_tree)
+print("\nDecision Tree Metrics")
+print("---------------------")
+print(f"Accuracy : {tree_accuracy:.4f}")
+print(f"AUC Score : {tree_auc:.4f}")
+print(f"Precision : {tree_precision:.4f}")
+print(f"Recall : {tree_recall:.4f}")
+print(f"F1 Score : {tree_f1:.4f}")
+print(f"MCC Score : {tree_mcc:.4f}")
+
+#Decision tree confusion matrix
+tree_cm = confusion_matrix(y_test, y_pred_tree)
+print("\nDecision Tree Confusion Matrix")
+print("--------------------------------")
+print(tree_cm)
+print("\nDecision Tree Classification Report")
+print("------------------------------------")
+print(classification_report(y_test, y_pred_tree))
+
+# Create KNN pipeline
+knn_model = Pipeline(
+steps=[
+("preprocessor", preprocessor),
+("classifier", KNeighborsClassifier(
+n_neighbors=5
+))
+]
+)
+# Train KNN
+knn_model.fit(x_train, y_train)
+print("\nKNN training completed.")
+
+# Evaluate KNN
+# Make predictions
+y_pred_knn = knn_model.predict(x_test)
+# Probability of positive class (1 = yes)
+y_prob_knn = knn_model.predict_proba(x_test)[:, 1]
+# Calculate evaluation metrics
+knn_accuracy = accuracy_score(y_test, y_pred_knn)
+knn_auc = roc_auc_score(y_test, y_prob_knn)
+knn_precision = precision_score(y_test, y_pred_knn)
+knn_recall = recall_score(y_test, y_pred_knn)
+knn_f1 = f1_score(y_test, y_pred_knn)
+knn_mcc = matthews_corrcoef(y_test, y_pred_knn)
+print("\nKNN Metrics")
+print("-----------")
+print(f"Accuracy : {knn_accuracy:.4f}")
+print(f"AUC Score : {knn_auc:.4f}")
+print(f"Precision : {knn_precision:.4f}")
+print(f"Recall : {knn_recall:.4f}")
+print(f"F1 Score : {knn_f1:.4f}")
+print(f"MCC Score : {knn_mcc:.4f}")
+
+# KNN Confusion Matrix
+knn_cm = confusion_matrix(y_test, y_pred_knn)
+print("\nKNN Confusion Matrix")
+print("--------------------")
+print(knn_cm)
+print("\nKNN Classification Report")
+print("-------------------------")
+print(classification_report(y_test, y_pred_knn))
