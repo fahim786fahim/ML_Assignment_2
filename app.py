@@ -28,6 +28,19 @@ st.write(
 "models for predicting whether a customer will subscribe to a term deposit."
 )
 
+st.markdown("""
+### Project Overview
+This application evaluates multiple machine learning classification models
+on the UCI Bank Marketing dataset.
+The goal is to predict whether a customer will subscribe to a term deposit.
+Models included:
+- Logistic Regression
+- Decision Tree
+- K-Nearest Neighbors
+- Gaussian Naive Bayes
+- Random Forest
+""")
+
 #Add the model-selection dropdown
 st.subheader("Select a Classification Model")
 model_files = {
@@ -137,6 +150,11 @@ if uploaded_file is not None:
     report_df = pd.DataFrame(report).transpose()
     st.dataframe(
         report_df.round(4)
+    )
+
+    st.info(
+        "Random Forest achieved the strongest overall performance across "
+        "Accuracy, AUC, Precision, F1 Score, and MCC on the test dataset."
     )
 
     st.subheader("All Model Comparison")
