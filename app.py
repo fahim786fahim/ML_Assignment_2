@@ -11,16 +11,9 @@ precision_score,
 recall_score,
 f1_score,
 matthews_corrcoef,
-confusion_matrix
+confusion_matrix,
+classification_report
 )
-
-from sklearn.metrics import (
-accuracy_score,
-roc_auc_score,
-precision_score,
-recall_score,
-f1_score,
-matthews_corrcoef)
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 MODEL_DIR = PROJECT_ROOT / "model"
@@ -125,12 +118,36 @@ if uploaded_file is not None:
     ax.set_yticklabels(["No", "Yes"])
     ax.set_xlabel("Predicted Class")
     ax.set_ylabel("Actual Class")
+
     # Display values inside the matrix
     for i in range(2):
         for j in range(2):
             ax.text(j,i, cm[i, j], ha="center", va="center")
     fig.colorbar(matrix_plot, ax=ax)
     st.pyplot(fig)
+
+    # Classification Report
+    st.subheader("Classification Report")
+    report = classification_report(
+        y_actual,
+        y_pred,
+        target_names=["No Subscription", "Subscription"],
+        output_dict=True
+    )
+    report_df = pd.DataFrame(report).transpose()
+    st.dataframe(
+        report_df.round(4)
+    )
+
+    st.subheader("All Model Comparison")
+    results_path = MODEL_DIR / "model_results.csv"
+    model_results_df = pd.read_csv(results_path)
+    st.dataframe(
+        model_results_df,
+        use_container_width=True
+    )
 else:
     st.info("Please upload test_data.csv to evaluate the selected model.")
+
+
 
