@@ -1,1 +1,17 @@
+# Python cache
+pycache/
+*.py[cod]
+
+# PyCharm
 .idea/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS files
+.DS_Store
+
+# Streamlit local configuration
+.streamlit/secrets.toml
