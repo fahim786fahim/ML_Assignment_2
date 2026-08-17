@@ -1,4 +1,23 @@
-Based on your actual results, overall winner stands out is : Random Forest
+================================================================================
+Model Performance Observations
+================================================================================
+Logistic Regression
+Logistic Regression achieved an Accuracy of 0.9012 and a strong AUC score of 0.9056. It also achieved good Precision of 0.6445. However, Recall was relatively low at 0.3478, indicating that the model missed a considerable number of customers who actually subscribed.
+
+Decision Tree
+The Decision Tree achieved an Accuracy of 0.8746 and an AUC score of 0.7015. Its Recall of 0.4754 was higher than Logistic Regression, meaning that it detected a larger proportion of actual subscribers. However, its lower Precision and AUC indicate that this improvement came with more incorrect positive predictions.
+
+K-Nearest Neighbors
+KNN achieved an Accuracy of 0.8962 and Precision of 0.5990. However, its Recall of 0.3403 was the lowest among the evaluated models. This indicates that although its overall prediction accuracy was relatively high, it was less effective at detecting the positive subscription class.
+
+Naive Bayes
+Gaussian Naive Bayes achieved the highest Recall of all evaluated models at 0.5198. This means it identified the largest proportion of actual subscribers. However, its Precision of 0.4059 and Accuracy of 0.8548 were lower than the other stronger models, indicating a relatively high number of false-positive predictions.
+
+Random Forest
+Random Forest achieved the strongest overall performance. It produced the highest Accuracy of 0.9045, AUC score of 0.9263, Precision of 0.6506, F1 Score of 0.4924, and MCC score of 0.4597.
+
+================================================================================
+Based on actual results, overall winner stands out is : Random Forest
 ================================================================================
 Random Forest was the best-performing model overall because it achieved the highest scores in 5 out of the 6 evaluation metrics: Accuracy, AUC, Precision, F1 Score, and MCC.
 Although Naive Bayes had a higher Recall and was able to identify more actual subscribers, it also produced more false positives.

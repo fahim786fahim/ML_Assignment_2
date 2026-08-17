@@ -125,42 +125,22 @@ Each model was evaluated using the following metrics:
 ### Comparison Table
 
 | ML Model | Accuracy | AUC | Precision | Recall | F1 | MCC |
-
 |---|---:|---:|---:|---:|---:|---:|
-
 | Logistic Regression | 0.9012 | 0.9056 | 0.6445 | 0.3478 | 0.4518 | 0.4261 |
-
 | Decision Tree | 0.8746 | 0.7015 | 0.4649 | 0.4754 | 0.4701 | 0.3990 |
-
 | KNN | 0.8962 | 0.8277 | 0.5990 | 0.3403 | 0.4340 | 0.4001 |
-
 | Naive Bayes | 0.8548 | 0.8101 | 0.4059 | 0.5198 | 0.4559 | 0.3774 |
-
 | Random Forest | 0.9045 | 0.9263 | 0.6506 | 0.3960 | 0.4924 | 0.4597 |
 
 ## 6. Model Performance Observations
 
-### Logistic Regression
-
-Logistic Regression achieved an Accuracy of 0.9012 and a strong AUC score of 0.9056. It also achieved good Precision of 0.6445. However, Recall was relatively low at 0.3478, indicating that the model missed a considerable number of customers who actually subscribed.
-
-### Decision Tree
-
-The Decision Tree achieved an Accuracy of 0.8746 and an AUC score of 0.7015. Its Recall of 0.4754 was higher than Logistic Regression, meaning that it detected a larger proportion of actual subscribers. However, its lower Precision and AUC indicate that this improvement came with more incorrect positive predictions.
-
-### K-Nearest Neighbors
-
-KNN achieved an Accuracy of 0.8962 and Precision of 0.5990. However, its Recall of 0.3403 was the lowest among the evaluated models. This indicates that although its overall prediction accuracy was relatively high, it was less effective at detecting the positive subscription class.
-
-### Naive Bayes
-
-Gaussian Naive Bayes achieved the highest Recall of all evaluated models at 0.5198. This means it identified the largest proportion of actual subscribers. However, its Precision of 0.4059 and Accuracy of 0.8548 were lower than the other stronger models, indicating a relatively high number of false-positive predictions.
-
-### Random Forest
-
-Random Forest achieved the strongest overall performance. It produced the highest Accuracy of 0.9045, AUC score of 0.9263, Precision of 0.6506, F1 Score of 0.4924, and MCC score of 0.4597.
-
-Although its Recall of 0.3960 was lower than Naive Bayes and Decision Tree, its overall balance across the required evaluation metrics was the strongest.
+| Model | Performance Observations |
+|---|---|
+| Logistic Regression | Logistic Regression achieved an Accuracy of 0.9012 and a strong AUC score of 0.9056. It also achieved good Precision of 0.6445. However, Recall was relatively low at 0.3478, indicating that the model missed a considerable number of customers who actually subscribed.
+|Decision Tree|The Decision Tree achieved an Accuracy of 0.8746 and an AUC score of 0.7015. Its Recall of 0.4754 was higher than Logistic Regression, meaning that it detected a larger proportion of actual subscribers. However, its lower Precision and AUC indicate that this improvement came with more incorrect positive predictions.
+|K-Nearest Neighbors|KNN achieved an Accuracy of 0.8962 and Precision of 0.5990. However, its Recall of 0.3403 was the lowest among the evaluated models. This indicates that although its overall prediction accuracy was relatively high, it was less effective at detecting the positive subscription class.
+|Naive Bayes|Gaussian Naive Bayes achieved the highest Recall of all evaluated models at 0.5198. This means it identified the largest proportion of actual subscribers. However, its Precision of 0.4059 and Accuracy of 0.8548 were lower than the other stronger models, indicating a relatively high number of false-positive predictions.
+|Random Forest|Random Forest achieved the strongest overall performance. It produced the highest Accuracy of 0.9045, AUC score of 0.9263, Precision of 0.6506, F1 Score of 0.4924, and MCC score of 0.4597.
 
 ### Overall Winner
 
