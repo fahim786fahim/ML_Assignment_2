@@ -22,6 +22,28 @@ page_title="Bank Marketing Classification",
 page_icon="",
 layout="wide"
 )
+
+with st.sidebar:
+    st.header("Project Information")
+
+    st.write("**Dataset:** UCI Bank Marketing")
+    st.write("**Records:** 45,211")
+    st.write("**Input Features:** 16")
+    st.write("**Target:** Term Deposit Subscription")
+    st.write("**Problem Type:** Binary Classification")
+
+    st.divider()
+
+    st.write("### Models")
+    st.write("""
+    - Logistic Regression
+    - Decision Tree
+    - KNN
+    - Gaussian Naive Bayes
+    - Random Forest
+    """)
+
+
 st.title("Bank Marketing Classification")
 st.write(
 "This application compares multiple machine learning classification "
@@ -50,10 +72,33 @@ model_files = {
 "Naive Bayes": "naive_bayes.pkl",
 "Random Forest": "random_forest.pkl"
 }
+
 selected_model = st.selectbox(
 "Choose a model:",
 options=list(model_files.keys())
 )
+
+model_insights = {
+    "Logistic Regression":
+        "Strong overall AUC and precision, but relatively low recall.",
+
+    "Decision Tree":
+        "Detects more subscribers than Logistic Regression, but produces more false positives.",
+
+    "K-Nearest Neighbors (KNN)":
+        "Good overall accuracy, but relatively low recall for subscribers.",
+
+    "Naive Bayes":
+        "Achieved the highest recall, but also generated more false-positive predictions.",
+
+    "Random Forest":
+        "Best overall model, leading in Accuracy, AUC, Precision, F1 Score, and MCC."
+}
+
+st.info(
+    f"**Model Insight:** {model_insights[selected_model]}"
+)
+
 st.write(f"Selected model: {selected_model}")
 
 @st.cache_resource
@@ -79,6 +124,17 @@ if uploaded_file is not None:
 
     st.success("Test data uploaded successfully.")
     st.write("Test data shape:", test_df.shape)
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric("Test Records", len(test_df))
+
+    with col2:
+        st.metric("Input Features", len(test_df.columns) - 1)
+
+    with col3:
+        subscription_count = (test_df["y"] == "yes").sum()
+        st.metric("Actual Subscribers", subscription_count)
     st.write("Preview of uploaded test data:")
     st.dataframe(test_df.head())
 
